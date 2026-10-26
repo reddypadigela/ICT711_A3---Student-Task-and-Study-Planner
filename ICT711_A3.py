@@ -1,4 +1,3 @@
-
 from datetime import date, datetime
 
 # task priorities
@@ -86,16 +85,18 @@ def mark_completed(tasks, task_id):
 # search tasks by task title and subjects
 def search_tasks(tasks, keyword):
     keyword = validate_text(keyword, "Search keyword").lower()
-    return [task for task in tasksif keyword in task["title"].lower()or keyword in task["subject"].lower()]
+    # FIXED: Added space before 'if' and 'or'
+    return [task for task in tasks if keyword in task["title"].lower() or keyword in task["subject"].lower()]
 
-# 
+# get overdue tasks
 def get_overdue_tasks(tasks, today=None):
     if today is None:
         today = date.today()
 
-    return [task for task in tasksif not task["completed"] and task["due_date"] < today]
+    # FIXED: Added space before 'if'
+    return [task for task in tasks if not task["completed"] and task["due_date"] < today]
 
-# function to show task progres
+# function to show task progress
 def get_progress(tasks):
     total = len(tasks)
     completed = sum(task["completed"] for task in tasks)
